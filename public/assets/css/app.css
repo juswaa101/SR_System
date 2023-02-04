@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+body{
+    background-color:black;
+    background-size:cover;
+    background-position: fixed;
+    
+}
+.surveyrow{
+    height: 60vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.survey{
+    background-color:rgba(213, 213, 213, 0.253);
+    padding: 15px;
+}
+.dheight{
+    margin-top: 180px;
+}
+.sheight{
+    margin-top: 170px;
+}
+.aheight{
+    margin-top: 40px;
+}
+.homelogo{
+    width: 100%;
+    height: 100vh;
+}
+.loginlogo{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.lf{
+    font-family: 'Open Sans', sans-serif;
+}
+.img-button{
+    width: 500px;
+    height: 500px;
+}
+.edging{
+    border-radius: 20px;
+    width: 190px;
+    height: 190px;
+}
+.examform{
+    background-color:rgb(255, 255, 255);
+    border-radius: 20px;
+}
+.pagetitle{
+    color:cyan;
+}
+.addItemBtn{
+    padding: 0 15px;
+}
+.restextbox {
+    float: left;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    resize: none;
+    border: 1px solid grey;
+}
+.buttonselection{
+    background-color: rgb(224, 224, 14);
+    box-shadow: rgb(84, 69, 32) 0 7px 7px;
+}
+.buttonselection:hover{
+    color: red;
+    background-color: rgb(255, 255, 131);
+    
+}
