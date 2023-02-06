@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2023 at 01:08 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Feb 06, 2023 at 03:23 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,59 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `announcements`
+--
+
+CREATE TABLE `announcements` (
+  `ann_id` int(11) NOT NULL,
+  `posts` longtext NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcements`
+--
+
+INSERT INTO `announcements` (`ann_id`, `posts`, `account_id`, `updated_at`, `created_at`) VALUES
+(6, 'Test 1', 20, '2023-02-05 07:42:05', '2023-02-05 07:42:05'),
+(7, 'Test 2 lol```', 20, '2023-02-05 09:59:49', '2023-02-05 09:59:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `com_id` int(11) NOT NULL,
+  `comments` longtext NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL COMMENT '0 = Pending\r\n1 = Approved\r\n3 = Declined',
+  `ann_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`com_id`, `comments`, `account_id`, `status`, `ann_id`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 28, 2, 6, '2023-02-05 16:14:33', '2023-02-05 16:14:33'),
+(2, 'estsas', 28, 1, 6, '2023-02-05 16:33:24', '2023-02-05 16:33:24'),
+(3, 'Waiting for approval', 28, 2, 6, '2023-02-05 09:33:00', '2023-02-05 09:33:00'),
+(4, 'Test Data', 28, 0, 6, '2023-02-05 09:33:50', '2023-02-05 09:33:50'),
+(5, 'test 1', 28, 1, 6, '2023-02-05 09:37:01', '2023-02-05 09:37:01'),
+(6, 'you', 20, 1, 6, '2023-02-05 09:41:09', '2023-02-05 09:41:09'),
+(7, 'test', 20, 1, 6, '2023-02-05 09:58:20', '2023-02-05 09:58:20'),
+(8, 'Can i test this data?', 29, 0, 6, '2023-02-05 11:58:38', '2023-02-05 11:58:38'),
+(9, 'test 2', 5, 1, 6, '2023-02-05 12:12:22', '2023-02-05 12:12:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `exam`
 --
 
@@ -36,7 +89,7 @@ CREATE TABLE `exam` (
   `choice_d` varchar(255) NOT NULL,
   `answer` varchar(255) NOT NULL,
   `examcode` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `exam`
@@ -161,7 +214,7 @@ CREATE TABLE `forum` (
   `date` varchar(255) NOT NULL,
   `time` varchar(255) NOT NULL,
   `youcomment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `forum`
@@ -170,7 +223,8 @@ CREATE TABLE `forum` (
 INSERT INTO `forum` (`id`, `username`, `lrn`, `date`, `time`, `youcomment`) VALUES
 (2, '', '101729060090', '2023-01-03', '04:35 am', 'Strand Recommender System is the Best!'),
 (3, '', '101729060055', '2023-01-03', '02:28 pm', 'Jomelyn menor'),
-(4, '', '101729060077', '2023-01-05', '01:24 pm', 'Harold yung chat bot');
+(4, '', '101729060077', '2023-01-05', '01:24 pm', 'Harold yung chat bot'),
+(5, '', '101729060022', '2023-02-05', '02:00 am', 'g');
 
 -- --------------------------------------------------------
 
@@ -183,7 +237,7 @@ CREATE TABLE `list_survey` (
   `lrn` varchar(255) NOT NULL,
   `question` varchar(255) NOT NULL,
   `answer` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `list_survey`
@@ -221,7 +275,7 @@ INSERT INTO `list_survey` (`id`, `lrn`, `question`, `answer`) VALUES
 CREATE TABLE `take_survey` (
   `id` int(255) NOT NULL,
   `survey_question` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `take_survey`
@@ -261,6 +315,7 @@ CREATE TABLE `userlogin` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
+  `email_guardian` varchar(128) DEFAULT NULL,
   `lrn` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `usertype` varchar(255) NOT NULL,
@@ -275,20 +330,39 @@ CREATE TABLE `userlogin` (
   `take_survey` int(5) NOT NULL,
   `take_forum` int(50) NOT NULL,
   `examtime` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `userlogin`
 --
 
-INSERT INTO `userlogin` (`id`, `fname`, `lname`, `mname`, `lrn`, `password`, `usertype`, `math`, `science`, `abm`, `stem`, `cookery`, `humss`, `take_exam`, `section`, `take_survey`, `take_forum`, `examtime`) VALUES
-(5, 'Kevin Christian Nisperos', '', '', '101729060075', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, '', 0, 0, ''),
-(20, 'Counselor', '', '', '101729060099', 'f5bb0c8de146c67b44babbf4e6584cc0', 'counselor', '', '', 0, 0, 0, 0, 0, '', 0, 0, ''),
-(26, 'Seveses', 'Angeline', 'Distor', '101729060022', 'c0001bf869bec17ce3217afb06975efd', 'student', '', '', 0, 0, 0, 0, 1, 'Quezon', 0, 0, '2023-01-07 / 04:04 pm');
+INSERT INTO `userlogin` (`id`, `fname`, `lname`, `mname`, `email_guardian`, `lrn`, `password`, `usertype`, `math`, `science`, `abm`, `stem`, `cookery`, `humss`, `take_exam`, `section`, `take_survey`, `take_forum`, `examtime`) VALUES
+(5, 'Teacher 2', '', '', NULL, '101729060075', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Rizal', 0, 0, ''),
+(20, 'Counselor', '', '', NULL, '101729060099', 'f5bb0c8de146c67b44babbf4e6584cc0', 'counselor', '', '', 0, 0, 0, 0, 0, '', 0, 0, ''),
+(26, 'Seveses', 'Angeline', 'Distor', NULL, '101729060022', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 16, 36, 32, 40, 1, 'Quezon', 0, 1, '2023-02-04 / 12 : 26 pm'),
+(28, 'Josh', 'Maurice', 'Vino', 'jici@mailinator.com', '123456789123', '5f4dcc3b5aa765d61d8327deb882cf99', 'student', '', '', 0, 0, 0, 0, 0, 'Mabini', 0, 0, ''),
+(29, 'Sandra', 'Calvin', 'Olivia', 'juana@example.com', '123456789012', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, ''),
+(30, 'Teacher 1', '', '', NULL, '101729060076', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, ''),
+(32, 'Teacher 3', '', '', NULL, '101729060078', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Mabini', 0, 0, '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `announcements`
+--
+ALTER TABLE `announcements`
+  ADD PRIMARY KEY (`ann_id`),
+  ADD KEY `account_id` (`account_id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`com_id`),
+  ADD KEY `account_id` (`account_id`),
+  ADD KEY `post_id` (`ann_id`);
 
 --
 -- Indexes for table `exam`
@@ -318,11 +392,24 @@ ALTER TABLE `take_survey`
 -- Indexes for table `userlogin`
 --
 ALTER TABLE `userlogin`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email_guardian_unique` (`email_guardian`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `announcements`
+--
+ALTER TABLE `announcements`
+  MODIFY `ann_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `exam`
@@ -334,7 +421,7 @@ ALTER TABLE `exam`
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `list_survey`
@@ -352,7 +439,24 @@ ALTER TABLE `take_survey`
 -- AUTO_INCREMENT for table `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `announcements`
+--
+ALTER TABLE `announcements`
+  ADD CONSTRAINT `announcements_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `userlogin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `userlogin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`ann_id`) REFERENCES `announcements` (`ann_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CouncelorController;
@@ -22,7 +23,9 @@ use App\Http\Controllers\ReportsController;
 */
 
 //Account
-Route::get('/', [AccountController::class, 'index']);
+Route::view('/', 'welcome');
+
+Route::get('/login', [AccountController::class, 'index']);
 Route::get('/signup', [AccountController::class, 'signup']);
 Route::post('/register', [AccountController::class, 'register']);
 Route::post('/signin', [AccountController::class, 'signin']);
@@ -30,6 +33,7 @@ Route::post('/signin', [AccountController::class, 'signin']);
 //userpage
 Route::get('/landingpage', [UserController::class, 'landingpage']);
 Route::get('/surveytaken', [SurveyController::class, 'surveytaken']);
+
 
 //user exam
 Route::get('/exam', [ExamController::class, 'exam']);
@@ -54,6 +58,16 @@ Route::get('/deletesurvey/{id}', [CouncelorController::class, 'deletesurvey']);
 Route::get('/editsurvey/{id}/{survey}', [CouncelorController::class, 'editsurvey']);
 Route::post('/addsurvey', [CouncelorController::class, 'addsurvey']);
 Route::post('/savechanges', [CouncelorController::class, 'savechanges']);
+
+Route::get('/announcement', [AnnouncementController::class, 'announcement']);
+Route::post('/createAnnouncement', [AnnouncementController::class, 'createAnnouncement']);
+Route::get('/editAnnouncement/{id}', [AnnouncementController::class, 'editAnnouncement']);
+Route::post('/updateAnnouncement', [AnnouncementController::class, 'updateAnnouncement']);
+Route::post('/deleteAnnouncement', [AnnouncementController::class, 'deleteAnnouncement']);
+Route::post('/approveComment', [AnnouncementController::class, 'approveComment']);
+Route::post('/declineComment', [AnnouncementController::class, 'declineComment']);
+Route::get('/announcement_area',[AnnouncementController::class,'user_page_announcement']);
+Route::post('/addComment', [AnnouncementController::class, 'addComment']);
 
 // teacher part
 Route::get('/teacherhomepage', [TeacherController::class, 'teacherhomepage']);

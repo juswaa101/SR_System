@@ -8,16 +8,23 @@ use Alert;
 
 class TeacherController extends Controller
 {
-    public function teacherhomepage(){
+    public function teacherhomepage()
+    {
         $examList = DB::SELECT("SELECT * FROM `exam`");
-        return view('teacher.homepage',['examList'=>$examList]);
+        return view('teacher.homepage', ['examList' => $examList]);
     }
-    public function studentlist(){
-        $studentlist = DB::select("SELECT * FROM `userlogin` WHERE usertype = 'student'");
+    public function studentlist()
+    {
+        if (session()->get('usertype') == 'teacher') {
+            $studentlist = DB::select("SELECT * FROM `userlogin` WHERE usertype = 'student' AND section = '" . session()->get('section') . "'");
+        } else {
+            $studentlist = DB::select("SELECT * FROM `userlogin` WHERE usertype = 'student'");
+        }
         $stem = 0;
-        return view('teacher.student',['stem'=>$stem, 'studentlist'=>$studentlist]);
+        return view('teacher.student', ['stem' => $stem, 'studentlist' => $studentlist]);
     }
-    public function addexam(Request $request){
+    public function addexam(Request $request)
+    {
         $request->validate([
             'question' => 'required',
             'examcode' => 'required',
@@ -56,20 +63,22 @@ class TeacherController extends Controller
                 '$Answer', 
                 '$examcode'
             )");
-        
-        if($InsertExam){
+
+        if ($InsertExam) {
             Alert::success('Success', 'New Exam Added Successfuly! ');
             return redirect('teacherhomepage');
         }
     }
-    public function delexam($id){
+    public function delexam($id)
+    {
         $deleteExxam = DB::delete("DELETE  FROM `exam` WHERE id = $id");
-        if($deleteExxam){
+        if ($deleteExxam) {
             Alert::success('Success', 'Exam Deleted Successfuly! ');
             return redirect('teacherhomepage');
         }
     }
-    public function edituser($id){
+    public function edituser($id)
+    {
         $myexamitem = DB::SELECT("SELECT * FROM `exam` WHERE id = $id");
         $lrn = session('email');
         $userlogin = DB::SELECT("SELECT * FROM `userlogin` where id =$id ");
@@ -87,43 +96,39 @@ class TeacherController extends Controller
         $recomended = "";
         $date = "";
 
-        foreach($userlogin as $item){
-            $stem += $item -> stem;
-            $abm += $item -> abm;
-            $humss += $item -> humss;
-            $cookery += $item -> cookery;
-            $lrn = $item -> lrn;
-            $fullname = $item -> fname;
-            $lname = $item -> lname;
-            $mname = $item -> mname;
-            $math = $item -> math;
-            $science = $item -> science;
-            $section = $item -> section;
-            $math = $item -> math;
-            $science = $item -> science;
-            $date = $item -> examtime;
+        foreach ($userlogin as $item) {
+            $stem += $item->stem;
+            $abm += $item->abm;
+            $humss += $item->humss;
+            $cookery += $item->cookery;
+            $lrn = $item->lrn;
+            $fullname = $item->fname;
+            $lname = $item->lname;
+            $mname = $item->mname;
+            $math = $item->math;
+            $science = $item->science;
+            $section = $item->section;
+            $math = $item->math;
+            $science = $item->science;
+            $date = $item->examtime;
         }
 
-        if(($stem > $abm) && ($stem > $humss) && ($stem > $cookery) && ($math >= 85 )&& ($science >= 85)){
+        if (($stem > $abm) && ($stem > $humss) && ($stem > $cookery) && ($math >= 85) && ($science >= 85)) {
             $recomended = "STEM";
-        }
-        else if(($abm > $stem) && ($abm > $humss) && ($abm > $cookery) && ($science >= 85)){
+        } else if (($abm > $stem) && ($abm > $humss) && ($abm > $cookery) && ($science >= 85)) {
             $recomended = "ABM";
-        }
-        else if(($humss >= $cookery)){
+        } else if (($humss >= $cookery)) {
             $recomended = "HUMMS";
-        }
-        else if(($cookery > $humss)){
+        } else if (($cookery > $humss)) {
             $recomended = "COOKERY";
-        }
-        else{
+        } else {
             $recomended = "TAKE THE EXAM FIRST";
         }
         return redirect('/studentlist')->with([
-            'date' => $date, 
-            'lname' => $lname, 
-            'mname' => $mname, 
-            'id' => $id, 
+            'date' => $date,
+            'lname' => $lname,
+            'mname' => $mname,
+            'id' => $id,
             'stem' => $stem,
             'abm' => $abm,
             'humss' => $humss,
@@ -136,24 +141,26 @@ class TeacherController extends Controller
             'recomended' => $recomended,
         ]);
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $myexamitem = DB::SELECT("SELECT * FROM `exam` WHERE id = $id");
         return redirect('/teacherhomepage')->with([
-            'id' => $id, 
-            'question'=>$myexamitem[0]->question,
-            'a'=>$myexamitem[0]->choice_a,
-            'b'=>$myexamitem[0]->choice_b,
-            'c'=>$myexamitem[0]->choice_c,
-            'd'=>$myexamitem[0]->choice_d,
-            'answer'=>$myexamitem[0]->answer,
-            'code'=>$myexamitem[0]->examcode,
+            'id' => $id,
+            'question' => $myexamitem[0]->question,
+            'a' => $myexamitem[0]->choice_a,
+            'b' => $myexamitem[0]->choice_b,
+            'c' => $myexamitem[0]->choice_c,
+            'd' => $myexamitem[0]->choice_d,
+            'answer' => $myexamitem[0]->answer,
+            'code' => $myexamitem[0]->examcode,
         ]);
     }
-    public function usersaveedit(Request $request){
+    public function usersaveedit(Request $request)
+    {
         $request->validate([
-            'Fullname' => 'required',  
-            'lname' => 'required',  
-            'mname' => 'required',  
+            'Fullname' => 'required',
+            'lname' => 'required',
+            'mname' => 'required',
             'lrn' => 'required'
         ]);
 
@@ -178,13 +185,13 @@ class TeacherController extends Controller
         WHERE 
         `userlogin`.`id` = $myid");
 
-        if($saveChanges){
+        if ($saveChanges) {
             Alert::success('Success', 'User Info Updated Successfuly! ');
             return redirect('studentlist');
         }
-        
     }
-    public function saveedit(Request $request){
+    public function saveedit(Request $request)
+    {
 
         $request->validate([
             'question' => 'required',
@@ -216,13 +223,13 @@ class TeacherController extends Controller
         WHERE 
         `exam`.`id` = $myid");
 
-        if($saveChanges){
+        if ($saveChanges) {
             Alert::success('Exam Item Updated Successfuly! ');
             return redirect('teacherhomepage');
         }
-        
     }
-    public function addstudents(Request $request){
+    public function addstudents(Request $request)
+    {
         $request->validate([
             'Fullname' => 'required',
             'lname' => 'required',
@@ -239,16 +246,17 @@ class TeacherController extends Controller
 
         $registring = DB::INSERT("INSERT INTO `userlogin` (`id`, `fname`,`lname`,`mname`, `lrn`, `password`, `usertype`, `section`) VALUES (NULL, '$fname', '$lname','$mname', '$lrn', '$password', 'student','$section')");
 
-        if($registring){
+        if ($registring) {
             Alert::success('Success', 'Account Created Successfuly!');
             return redirect('studentlist');
         }
     }
-    public function deluser($id){
+    public function deluser($id)
+    {
         $DeleteUser = DB::DELETE("DELETE FROM `userlogin` WHERE id = $id");
-        if($DeleteUser){
+        if ($DeleteUser) {
             Alert::success('Success', 'Account DELETED Successfuly!');
             return redirect('studentlist');
         }
     }
-}   
+}

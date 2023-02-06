@@ -90,24 +90,36 @@
             <div class=" collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto ">
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage"
-                            href="/teacherhomepage">Home</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage" href="/teacherhomepage">Hi,
+                            {{ Session::get('fname') }} {{ Session::get('mname') }} {{ Session::get('lname') }},
+                            ({{ Str::upper(Session::get('usertype')) }})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" href="/studentlist">STUDENT</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2  active" href="/reports">REPORTS</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/surveylist"
+                            href="/surveylist">Survey List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" href="/logout">LOGOUT </a>
+                        <a class="nav-link mx-2 text-light" aria-current="/announcement" href="/announcement">Guidelines
+                            & Announcement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-light " href="/studentlist">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 active" href="/reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-light" href="/logout">Logout </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container" >
+    <div class="container">
         <div class="card mt-4" style="height:calc(100vh - 120px)">
             <div class="card-body">
                 <div class="d-flex justify-content-start">
@@ -128,27 +140,41 @@
 
                         <tr>
                             <td class="fw-bold">Recommended Strands of Students Base on the Assesment.</td>
-                            <td><a href="/reports/student_base" target="_blank"><i class="far fa-file-pdf text-danger fa-2x"></i></a>
+                            <td><a href="/reports/student_base" target="_blank"><i
+                                        class="far fa-file-pdf text-danger fa-2x"></i></a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="fw-bold">List of Name of Grade 10 Students with the strands they are qualified to take</td>
-                            <td><a href="/reports/student_qualified" target="_blank"><i class="far fa-file-pdf text-danger fa-2x"></i></a>
+                            <td class="fw-bold">List of Name of Grade 10 Students with the strands they are qualified to
+                                take</td>
+                            <td><a href="/reports/student_qualified" target="_blank"><i
+                                        class="far fa-file-pdf text-danger fa-2x"></i></a>
                             </td>
                         </tr>
+                        @if (session()->has('usertype') == 'counselor')
+                            <tr>
+                                <td class="fw-bold">List of Recommended Strand base on the career survey</td>
+                                <td><a href="/reports/student_qualified" target="_blank"><i
+                                            class="far fa-file-pdf text-danger fa-2x"></i></a>
+                                </td>
+                            </tr>
+                        @endif
                         <tr>
                             <td class="fw-bold">Number of students who already finish the assessment</td>
-                            <td><a href="/reports/student_assesment" target="_blank"><i class="far fa-file-pdf text-danger fa-2x"></i></a>
+                            <td><a href="/reports/student_assesment" target="_blank"><i
+                                        class="far fa-file-pdf text-danger fa-2x"></i></a>
                             </td>
-                        </tr><tr>
+                        </tr>
+                        <tr>
                             <td class="fw-bold">Number of students who created accounts</td>
-                            <td><a href="/reports/student_accounts" target="_blank"><i class="far fa-file-pdf text-danger fa-2x"></i></a>
+                            <td><a href="/reports/student_accounts" target="_blank"><i
+                                        class="far fa-file-pdf text-danger fa-2x"></i></a>
                             </td>
                         </tr>
 
                     </table>
 
-                    
+
                 </div>
             </div>
         </div>

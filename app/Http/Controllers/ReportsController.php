@@ -9,31 +9,40 @@ use Illuminate\Http\Request;
 class ReportsController extends Controller
 {
     public function index()
-    {
-        return view('teacher.reports');
+    {   
+        return view('reports.reports');
     }
 
     public function student_base()
     {
 
-        $users = Users::where('usertype', '=', 'student')->get();
+        if (session()->get('usertype') == 'teacher') {
+            $users = Users::where('usertype', '=', 'student')->where('section', session()->get('section'))->get();
+        } else {
+            $users = Users::where('usertype', '=', 'student')->get();
+        }
 
         $StudentData = [];
 
         foreach ($users as $user) {
             $recommended_strand = $this->determineHighScore($user->abm, $user->stem, $user->humss, $user->cookery);
             $StudentData[] = [
-                $firstname = $user->fname,
-                $lastname = $user->lname,
-                $middlename = $user->mname,
                 $lrn = $user->lrn,
+                $firstname = $user->fname,
+                $middlename = $user->mname,
+                $lastname = $user->lname,
+                $section = $user->section,
+                $abm = $user->abm,
+                $humms = $user->humss,
+                $cookery = $user->cookery,
+                $stem = $user->stem,
                 $recommended_strand = $recommended_strand
             ];
 
             // dd($StudentData);
         }
 
-        $pdf = Pdf::loadView('teacher.reports.student_qualified', compact('StudentData'));
+        $pdf = Pdf::loadView('reports.student_qualified', compact('StudentData'))->setPaper('a4', 'landscape');
         return $pdf->download('student_base.pdf');
     }
 
@@ -56,22 +65,57 @@ class ReportsController extends Controller
 
     public function student_qualified()
     {
-        $pdf = PDF::loadView('teacher.reports.student_qualified');
+        if (session()->get('usertype') == 'teacher') {
+            $users = Users::where('usertype', '=', 'student')->where('section', session()->get('section'))->get();
+        } else {
+            $users = Users::where('usertype', '=', 'student')->get();
+        }
+
+        $StudentData = [];
+
+        foreach ($users as $user) {
+            $recommended_strand = $this->determineHighScore($user->abm, $user->stem, $user->humss, $user->cookery);
+            $StudentData[] = [
+                $lrn = $user->lrn,
+                $firstname = $user->fname,
+                $middlename = $user->mname,
+                $lastname = $user->lname,
+                $section = $user->section,
+                $abm = $user->abm,
+                $humms = $user->humss,
+                $cookery = $user->cookery,
+                $stem = $user->stem,
+                $recommended_strand = $recommended_strand
+            ];
+
+            // dd($StudentData);
+        }
+        $pdf = PDF::loadView('reports.student_qualified', compact('StudentData'))->setPaper('a4', 'portrait');
         return $pdf->download('student_qualified.pdf');
     }
 
     public function student_assesment()
     {
-        $student_assessment = Users::where('take_exam', '>', '0')->get();
+        if (session()->get('usertype') == 'teacher') {
+            $student_assessment = Users::where('take_exam', '>', '0')->where('section', session()->get('section'))->get();
+        } else {
+            $student_assessment = Users::where('take_exam', '>', '0')->get();
+        }
+
         // dd($student_assessment)
-        $pdf = PDF::loadView('teacher.reports.student_assesment', compact('student_assessment'));
+        $pdf = PDF::loadView('reports.student_assesment', compact('student_assessment'));
         return $pdf->download('student_assessment.pdf');
     }
 
     public function student_accounts()
     {
-        $students = Users::where('usertype', '=', 'student')->get();
-        $pdf = PDF::loadView('teacher.reports.student_accounts', compact('students'));
+
+        if (session()->get('usertype') == 'teacher') {
+            $students = Users::where('usertype', '=', 'student')->where('section', session()->get('section'))->get();
+        } else {
+            $students = Users::where('usertype', '=', 'student')->get();
+        }
+        $pdf = PDF::loadView('reports.student_accounts', compact('students'));
         return $pdf->download('student_accounts.pdf');
     }
 }

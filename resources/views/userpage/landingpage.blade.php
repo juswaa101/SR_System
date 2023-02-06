@@ -75,6 +75,10 @@
                 
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link mx-2 text-light" aria-current="/announcement_area" href="/announcement_area">Announcements</a>
+                  
+                  </li>
+                <li class="nav-item">
                 <!-- Button trigger modal -->
                 <button type="button" class="nav-link mx-2 active btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa fa-user" style="font-size:20px;color:black"></i>

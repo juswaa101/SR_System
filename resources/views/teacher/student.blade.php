@@ -90,17 +90,29 @@
             <div class=" collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto ">
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage"
-                            href="/teacherhomepage">Home</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage" href="/teacherhomepage">Hi,
+                            {{ Session::get('fname') }} {{ Session::get('mname') }} {{ Session::get('lname') }},
+                            ({{ Str::upper(Session::get('usertype')) }})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2  active" href="/studentlist">STUDENT</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" href="/reports">REPORTS</a>
+                        <a class="nav-link mx-2 text-light" aria-current="/surveylist"
+                            href="/surveylist">Survey List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" href="/logout">LOGOUT </a>
+                        <a class="nav-link mx-2 text-light" aria-current="/announcement" href="/announcement">Guidelines
+                            & Announcement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 active " href="/studentlist">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-light" href="/reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-light" href="/logout">Logout </a>
                     </li>
                 </ul>
             </div>

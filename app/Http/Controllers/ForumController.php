@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB; 
+use DB;
 use Alert;
 
 class ForumController extends Controller
 {
-    public function addforum(Request $request){
+    public function addforum(Request $request)
+    {
         $lrn = session('email');
         $date = date('Y-m-d');
         $time = date('h:i a');

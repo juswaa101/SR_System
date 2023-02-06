@@ -8,7 +8,8 @@ use Alert;
 
 class SurveyController extends Controller
 {
-    public function takesurvey(Request $request){
+    public function takesurvey(Request $request)
+    {
         $email = Session('email');
         // $request->validate([
         //     's1' =>'required',
@@ -54,9 +55,9 @@ class SurveyController extends Controller
 
         $listsurvey = DB::select("SELECT * FROM `take_survey`");
 
-        foreach($listsurvey as $item){
-            $myanswer = $request->input($item -> id);
-            $survey_question = $item ->survey_question;
+        foreach ($listsurvey as $item) {
+            $myanswer = $request->input($item->id);
+            $survey_question = $item->survey_question;
             DB::insert("INSERT INTO `list_survey` (`id`, `lrn`, `question`, `answer`) VALUES (NULL, '$email', '$survey_question', '$myanswer')");
         }
 
@@ -66,12 +67,13 @@ class SurveyController extends Controller
         $updatesurvey = DB::update("UPDATE `userlogin` SET `take_survey` = '1' WHERE `userlogin`.`lrn` = '$email'");
 
         // if($surveyinsert){
-            Alert::success('Success', 'Your Survey is Submitted!');
-            return redirect('landingpage');
+        Alert::success('Success', 'Your Survey is Submitted!');
+        return redirect('landingpage');
         // }
-        return("survey");
+        return ("survey");
     }
-    public function surveytaken(){
+    public function surveytaken()
+    {
         Alert::warning('Warning!', 'You Already Submit Your Survey!');
         return redirect('landingpage');
     }
