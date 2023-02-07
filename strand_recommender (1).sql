@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 03:23 AM
+-- Generation Time: Feb 07, 2023 at 04:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -46,6 +46,95 @@ INSERT INTO `announcements` (`ann_id`, `posts`, `account_id`, `updated_at`, `cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clone_strand_category`
+--
+
+CREATE TABLE `clone_strand_category` (
+  `clone_strand_id` int(11) NOT NULL,
+  `category_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clone_strand_category`
+--
+
+INSERT INTO `clone_strand_category` (`clone_strand_id`, `category_name`) VALUES
+(1, 'STEM'),
+(2, 'HUMMS'),
+(3, 'ABM'),
+(4, 'TVL');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clone_survey`
+--
+
+CREATE TABLE `clone_survey` (
+  `clone_id_survey` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `survey_type` tinyint(1) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clone_survey`
+--
+
+INSERT INTO `clone_survey` (`clone_id_survey`, `question`, `category_id`, `survey_type`, `date_created`) VALUES
+(1, 'Perform routine, organized activities but can be flexible?', 3, 0, '2023-02-06 15:00:35'),
+(2, 'Work with numbers and detailed information?', 3, 0, '2023-02-06 15:00:35'),
+(3, 'Be the leader in a group?', 3, 0, '2023-02-06 15:02:04'),
+(4, 'Make business contact with people?', 3, 0, '2023-02-06 15:02:04'),
+(5, 'Work with computer programs?', 3, 0, '2023-02-06 15:04:19'),
+(6, 'Create reports and communicate ideas?', 3, 0, '2023-02-06 15:04:19'),
+(7, 'Plan my work and follow instructions without close supervision?', 3, 0, '2023-02-06 15:04:19'),
+(8, 'Care about people, their needs, and their problems?', 2, 0, '2023-02-06 15:07:17'),
+(9, 'Participate in community services and/or volunteering?', 2, 0, '2023-02-06 15:07:17'),
+(10, 'Listen to other people\'s viewpoints?', 2, 0, '2023-02-06 15:07:17'),
+(11, 'Help people be at their best?', 2, 0, '2023-02-06 15:07:17'),
+(12, 'Work with people from preschool age to old age?', 2, 0, '2023-02-06 15:07:17'),
+(13, 'Think of new ways to do things?', 2, 0, '2023-02-06 15:07:17'),
+(14, 'Make friends with different kinds of people?', 2, 0, '2023-02-06 15:07:17'),
+(15, 'Interpret formulas?', 1, 0, '2023-02-06 15:10:25'),
+(16, 'Find the answers to questions?', 1, 0, '2023-02-06 15:10:25'),
+(17, 'Work in a laboratory?', 1, 0, '2023-02-06 15:10:25'),
+(18, 'Figure out how things work and investigate new things?', 1, 0, '2023-02-06 15:10:25'),
+(19, 'Explore new technology?', 1, 0, '2023-02-06 15:10:25'),
+(20, 'Experiment to find the best way to do something?', 1, 0, '2023-02-06 15:10:25'),
+(21, 'Pay attention to details and help things be precise?', 1, 0, '2023-02-06 15:10:25'),
+(22, 'Work with my hands and learn that way?', 4, 0, '2023-02-06 15:13:40'),
+(23, 'Put things together?', 4, 0, '2023-02-06 15:13:40'),
+(24, 'Do routine, organized and accurate work?', 4, 0, '2023-02-06 15:13:40'),
+(25, 'Perform activities that produce tangible results?', 4, 0, '2023-02-06 15:13:40'),
+(26, 'Apply math to work out solutions?', 4, 0, '2023-02-06 15:13:40'),
+(27, 'Use hand and power tools and operate equipment/machinery?', 4, 0, '2023-02-06 15:13:40'),
+(28, 'Visualize objects in three dimensions from flat drawings?', 4, 0, '2023-02-06 15:13:40'),
+(32, 'Organized', 3, 1, '2023-02-06 15:53:50'),
+(33, 'Practical and logical', 3, 1, '2023-02-06 15:53:50'),
+(34, 'Patient', 3, 1, '2023-02-06 15:53:50'),
+(35, 'Tactful', 3, 1, '2023-02-06 15:53:50'),
+(36, 'Responsible', 3, 1, '2023-02-06 15:53:50'),
+(37, 'Good Communicator/Good Listener', 2, 1, '2023-02-06 15:54:54'),
+(38, 'Caring', 2, 1, '2023-02-06 15:54:54'),
+(39, 'Non Materialistic', 2, 1, '2023-02-06 15:54:54'),
+(40, 'Intuitive and logical', 2, 1, '2023-02-06 15:54:54'),
+(41, 'Non-judgemental', 2, 1, '2023-02-06 15:54:54'),
+(42, 'Detail oriented', 1, 1, '2023-02-06 15:56:37'),
+(43, 'Inquisitive', 1, 1, '2023-02-06 15:56:37'),
+(44, 'Objective', 1, 1, '2023-02-06 15:56:37'),
+(45, 'Methodical', 1, 1, '2023-02-06 15:56:37'),
+(46, 'Mechanically inclined', 1, 1, '2023-02-06 15:56:37'),
+(47, 'Practical', 4, 1, '2023-02-06 15:57:33'),
+(48, 'Observant', 4, 1, '2023-02-06 15:57:33'),
+(49, 'Physically Active', 4, 1, '2023-02-06 15:57:33'),
+(50, 'Step by step thinker', 4, 1, '2023-02-06 15:57:33'),
+(51, 'Coordinated', 4, 1, '2023-02-06 15:57:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -72,7 +161,8 @@ INSERT INTO `comments` (`com_id`, `comments`, `account_id`, `status`, `ann_id`, 
 (6, 'you', 20, 1, 6, '2023-02-05 09:41:09', '2023-02-05 09:41:09'),
 (7, 'test', 20, 1, 6, '2023-02-05 09:58:20', '2023-02-05 09:58:20'),
 (8, 'Can i test this data?', 29, 0, 6, '2023-02-05 11:58:38', '2023-02-05 11:58:38'),
-(9, 'test 2', 5, 1, 6, '2023-02-05 12:12:22', '2023-02-05 12:12:22');
+(9, 'test 2', 5, 1, 6, '2023-02-05 12:12:22', '2023-02-05 12:12:22'),
+(10, 'a', 28, 0, 6, '2023-02-06 14:22:06', '2023-02-06 14:22:06');
 
 -- --------------------------------------------------------
 
@@ -224,7 +314,8 @@ INSERT INTO `forum` (`id`, `username`, `lrn`, `date`, `time`, `youcomment`) VALU
 (2, '', '101729060090', '2023-01-03', '04:35 am', 'Strand Recommender System is the Best!'),
 (3, '', '101729060055', '2023-01-03', '02:28 pm', 'Jomelyn menor'),
 (4, '', '101729060077', '2023-01-05', '01:24 pm', 'Harold yung chat bot'),
-(5, '', '101729060022', '2023-02-05', '02:00 am', 'g');
+(5, '', '101729060022', '2023-02-05', '02:00 am', 'g'),
+(6, '', '123456789123', '2023-02-06', '12:22 pm', 'test');
 
 -- --------------------------------------------------------
 
@@ -307,6 +398,29 @@ INSERT INTO `take_survey` (`id`, `survey_question`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `total_test`
+--
+
+CREATE TABLE `total_test` (
+  `total_id` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `total_test`
+--
+
+INSERT INTO `total_test` (`total_id`, `total`, `user_id`, `category_id`) VALUES
+(1, 5, 28, 1),
+(2, 4, 28, 2),
+(3, 6, 28, 3),
+(4, 3, 28, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userlogin`
 --
 
@@ -329,21 +443,22 @@ CREATE TABLE `userlogin` (
   `section` varchar(100) NOT NULL,
   `take_survey` int(5) NOT NULL,
   `take_forum` int(50) NOT NULL,
-  `examtime` varchar(255) NOT NULL
+  `examtime` varchar(255) NOT NULL,
+  `take_survey_exam` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `userlogin`
 --
 
-INSERT INTO `userlogin` (`id`, `fname`, `lname`, `mname`, `email_guardian`, `lrn`, `password`, `usertype`, `math`, `science`, `abm`, `stem`, `cookery`, `humss`, `take_exam`, `section`, `take_survey`, `take_forum`, `examtime`) VALUES
-(5, 'Teacher 2', '', '', NULL, '101729060075', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Rizal', 0, 0, ''),
-(20, 'Counselor', '', '', NULL, '101729060099', 'f5bb0c8de146c67b44babbf4e6584cc0', 'counselor', '', '', 0, 0, 0, 0, 0, '', 0, 0, ''),
-(26, 'Seveses', 'Angeline', 'Distor', NULL, '101729060022', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 16, 36, 32, 40, 1, 'Quezon', 0, 1, '2023-02-04 / 12 : 26 pm'),
-(28, 'Josh', 'Maurice', 'Vino', 'jici@mailinator.com', '123456789123', '5f4dcc3b5aa765d61d8327deb882cf99', 'student', '', '', 0, 0, 0, 0, 0, 'Mabini', 0, 0, ''),
-(29, 'Sandra', 'Calvin', 'Olivia', 'juana@example.com', '123456789012', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, ''),
-(30, 'Teacher 1', '', '', NULL, '101729060076', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, ''),
-(32, 'Teacher 3', '', '', NULL, '101729060078', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Mabini', 0, 0, '');
+INSERT INTO `userlogin` (`id`, `fname`, `lname`, `mname`, `email_guardian`, `lrn`, `password`, `usertype`, `math`, `science`, `abm`, `stem`, `cookery`, `humss`, `take_exam`, `section`, `take_survey`, `take_forum`, `examtime`, `take_survey_exam`) VALUES
+(5, 'Teacher 2', '', '', NULL, '101729060075', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Rizal', 0, 0, '', NULL),
+(20, 'Counselor', '', '', NULL, '101729060099', 'f5bb0c8de146c67b44babbf4e6584cc0', 'counselor', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', NULL),
+(26, 'Seveses', 'Angeline', 'Distor', NULL, '101729060022', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 16, 36, 32, 40, 1, 'Quezon', 0, 1, '2023-02-04 / 12 : 26 pm', NULL),
+(28, 'Josh', 'Maurice', 'Vino', 'jici@mailinator.com', '123456789123', '5f4dcc3b5aa765d61d8327deb882cf99', 'student', '', '', 24, 28, 36, 40, 1, 'Mabini', 0, 0, '2023-02-06 / 02 : 35 pm', 1),
+(29, 'Sandra', 'Calvin', 'Olivia', 'juana@example.com', '123456789012', 'f5bb0c8de146c67b44babbf4e6584cc0', 'student', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, '', NULL),
+(30, 'Teacher 1', '', '', NULL, '101729060076', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Quezon', 0, 0, '', NULL),
+(32, 'Teacher 3', '', '', NULL, '101729060078', 'f5bb0c8de146c67b44babbf4e6584cc0', 'teacher', '', '', 0, 0, 0, 0, 0, 'Mabini', 0, 0, '', NULL);
 
 --
 -- Indexes for dumped tables
@@ -355,6 +470,19 @@ INSERT INTO `userlogin` (`id`, `fname`, `lname`, `mname`, `email_guardian`, `lrn
 ALTER TABLE `announcements`
   ADD PRIMARY KEY (`ann_id`),
   ADD KEY `account_id` (`account_id`);
+
+--
+-- Indexes for table `clone_strand_category`
+--
+ALTER TABLE `clone_strand_category`
+  ADD PRIMARY KEY (`clone_strand_id`);
+
+--
+-- Indexes for table `clone_survey`
+--
+ALTER TABLE `clone_survey`
+  ADD PRIMARY KEY (`clone_id_survey`),
+  ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `comments`
@@ -389,6 +517,14 @@ ALTER TABLE `take_survey`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `total_test`
+--
+ALTER TABLE `total_test`
+  ADD PRIMARY KEY (`total_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `userlogin`
 --
 ALTER TABLE `userlogin`
@@ -406,10 +542,22 @@ ALTER TABLE `announcements`
   MODIFY `ann_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `clone_strand_category`
+--
+ALTER TABLE `clone_strand_category`
+  MODIFY `clone_strand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `clone_survey`
+--
+ALTER TABLE `clone_survey`
+  MODIFY `clone_id_survey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `exam`
@@ -421,7 +569,7 @@ ALTER TABLE `exam`
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `list_survey`
@@ -434,6 +582,12 @@ ALTER TABLE `list_survey`
 --
 ALTER TABLE `take_survey`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `total_test`
+--
+ALTER TABLE `total_test`
+  MODIFY `total_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `userlogin`
@@ -452,11 +606,24 @@ ALTER TABLE `announcements`
   ADD CONSTRAINT `announcements_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `userlogin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `clone_survey`
+--
+ALTER TABLE `clone_survey`
+  ADD CONSTRAINT `clone_survey_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `clone_strand_category` (`clone_strand_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `userlogin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`ann_id`) REFERENCES `announcements` (`ann_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `total_test`
+--
+ALTER TABLE `total_test`
+  ADD CONSTRAINT `total_test_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `clone_strand_category` (`clone_strand_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `total_test_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userlogin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
