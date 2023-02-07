@@ -488,11 +488,11 @@
                         <input type="text" class="form-control text-center" placeholder="ENTER CHOICE C" name="choice_C" value="{{ Session::get('c') }}">
                         @error('choice_C')
     <p class="text-danger">{{ $message }}</p>
-                                        <script>
-                                            $(window).on('load', function() {
-                                                $('#exampleModal1').modal('show');
-                                            });
-                                        </script>
+                                            <script>
+                                                $(window).on('load', function() {
+                                                    $('#exampleModal1').modal('show');
+                                                });
+                                            </script>
 @enderror
                     </div>
                 </div>

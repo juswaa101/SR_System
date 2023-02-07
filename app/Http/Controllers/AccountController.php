@@ -56,6 +56,7 @@ class AccountController extends Controller
         foreach ($auth as $item) {
             if ($item->usertype == 'student') {
                 session()->put('email', $lrn);
+                session()->put('take_survey_exam', $item->take_survey_exam);
                 session()->put('fname', $item->fname);
                 session()->put('mname', $item->mname);
                 session()->put('lname', $item->lname);

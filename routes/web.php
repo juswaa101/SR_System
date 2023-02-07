@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CouncelorController;
-use App\Http\Controllers\SurveyController;
-use App\Http\Controllers\ForumController;
-use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\StrandSurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,9 @@ Route::get('/guidelines', [UserController::class, 'guidelines']);
 //user Forum
 Route::post('/addforum', [ForumController::class, 'addforum']);
 
-
+// strand survey
+Route::get('/strand_survey', [StrandSurveyController::class, 'strand_survey']);
+Route::post('/strand_survey', [StrandSurveyController::class, 'submit_survey']);
 
 //councelor
 Route::get('/viewsurvey/{lrn}', [CouncelorController::class, 'viewsurvey']);
@@ -66,7 +69,7 @@ Route::post('/updateAnnouncement', [AnnouncementController::class, 'updateAnnoun
 Route::post('/deleteAnnouncement', [AnnouncementController::class, 'deleteAnnouncement']);
 Route::post('/approveComment', [AnnouncementController::class, 'approveComment']);
 Route::post('/declineComment', [AnnouncementController::class, 'declineComment']);
-Route::get('/announcement_area',[AnnouncementController::class,'user_page_announcement']);
+Route::get('/announcement_area', [AnnouncementController::class, 'user_page_announcement']);
 Route::post('/addComment', [AnnouncementController::class, 'addComment']);
 
 // teacher part

@@ -51,20 +51,35 @@
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-light" aria-current="/teacherhomepage" href="#">Home</a>
                     </li>
+                    @if (Session::get('usertype') == 'student')
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-light" href="/exam">Exam</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-light" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal4">Forum</a>
+
+                        </li>
+                    @endif
+                    @if(Session::get('usertype') == 'teacher')
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-light" aria-current="/surveylist" href="/surveylist">Survey
                             List</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link mx-2  active" aria-current="/announcement" href="/announcement">Guidelines
                             & Announcement</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2 text-light " href="/studentlist">Student</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2 text-light" href="/reports">Reports</a>
-                    </li>
+                    @if (Session::get('usertype') == 'teacher' || Session::get('usertype') == 'councelor')
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-light " href="/studentlist">Student</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 text-light" href="/reports">Reports</a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-light" href="/logout">Logout </a>
                     </li>
@@ -173,7 +188,7 @@
     @endif
     <script>
         function view(id) {
-            $('#comments'+id).toggle("");
+            $('#comments' + id).toggle("");
         }
     </script>
 </body>
